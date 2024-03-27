@@ -22,7 +22,7 @@ onMounted(() => {
         <th>Draw</th>
       </tr>
       <tr v-for="team in teams" :key="team.name">
-        <td>888</td>
+        <td>{{ team.index }}</td>
         <td>{{ team.name }}</td>
         <td>{{ team.points }}</td>
         <td>{{ team.wins }}</td>
@@ -31,7 +31,6 @@ onMounted(() => {
       </tr>
     </table>
   </div>
-  <!-- Dit is waar de children getoond worden -->
   <RouterView />
 </template>
 
