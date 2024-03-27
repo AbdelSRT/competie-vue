@@ -1,47 +1,44 @@
-import type { Team } from '@/components/models'
+import type { ApiResponse, Team } from '@/components/models'
 import axios from 'axios'
 import { ref, type Ref } from 'vue'
-
-const teams = [
-  {
-    Id: '65fd9f708850fe7d0204be7a',
-    name: 'Sifaw United',
-    founded_year: 2020,
-    wins: 0,
-    loss: 0,
-    draw: 0,
-    played_games: 0
-  },
-  {
-    Id: '65fda257992de71762ce1e78',
-    name: 'Barcelona',
-    founded_year: 2020,
-    wins: 0,
-    loss: 0,
-    draw: 0,
-    played_games: 0
-  },
-  {
-    Id: '66019b9b616cbd690e982d96',
-    name: 'Atletico Madrista',
-    founded_year: 1985,
-    wins: 100,
-    loss: 3,
-    draw: 1,
-    played_games: 9
-  }
-]
+const teams: Ref<Array<Team>> = ref([])
 
 const useTeams = () => {
-  /*
-    const loadTeams = () => {
+  const loadTeams = () => {
     axios
-      .get<Array<Team>>('http://localhost:8080/api/v1/teams')
-      .then((response) => (teams.value = response.data))
-      .catch((error) => console.error('Error loading teams:', error))
+      .get<ApiResponse>('http://localhost:8080/api/v1/teams')
+      .then((res) => {
+        // Assuming res.data.teams contains the array of team data
+        const teamData = res.data.teams
+
+        // Transform teamData into Team objects
+        const teamsArray = teamData.map((teamBackend) => {
+          const points = teamBackend.wins * 3 + teamBackend.draw
+          return {
+            id: teamBackend.id,
+            name: teamBackend.name,
+            foundedYear: teamBackend.foundedYear,
+            wins: teamBackend.wins,
+            loss: teamBackend.loss,
+            draw: teamBackend.draw,
+            playedGames: teamBackend.playedGames,
+            points: points // Calculate and add points property
+          }
+        })
+        teamsArray.sort((a, b) => b.points - a.points)
+
+        teamsArray.forEach((team, index) => {
+          team.index = index + 1 // Adding 1 to start index from 1 instead of 0
+        })
+
+        // Update the teams ref with the transformed data
+        teams.value = teamsArray
+      })
+      .catch((error) => console.error(error))
   }
-  */
+
   return {
+    loadTeams,
     teams
   }
 }

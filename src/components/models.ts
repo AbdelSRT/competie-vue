@@ -1,9 +1,15 @@
+export interface ApiResponse {
+  teams: Team[]
+}
+
 export interface Team {
   id: string
   name: string
-  founded_year: number
+  foundedYear: number
   wins: number
   loss: number
   draw: number
-  played_games: number
+  playedGames: number
+  points?: number
+  index?: number
 }

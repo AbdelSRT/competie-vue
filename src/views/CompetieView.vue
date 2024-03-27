@@ -3,9 +3,11 @@ import { useTeams } from '@/services/team.service'
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 
-const teams = useTeams()
+const { loadTeams, teams } = useTeams()
 
-onMounted(() => console.log(teams))
+onMounted(() => {
+  loadTeams()
+})
 </script>
 
 <template>
@@ -19,10 +21,10 @@ onMounted(() => console.log(teams))
         <th>Losses</th>
         <th>Draw</th>
       </tr>
-      <tr v-for="team in teams.teams" :key="team.name">
+      <tr v-for="team in teams" :key="team.name">
         <td>888</td>
         <td>{{ team.name }}</td>
-        <td>888</td>
+        <td>{{ team.points }}</td>
         <td>{{ team.wins }}</td>
         <td>{{ team.loss }}</td>
         <td>{{ team.draw }}</td>
