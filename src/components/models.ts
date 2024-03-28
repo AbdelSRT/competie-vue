@@ -3,13 +3,23 @@ export interface ApiResponse {
 }
 
 export interface Team {
-  id: string
+  Id: string
   name: string
   foundedYear: number
   wins: number
   loss: number
   draw: number
   playedGames: number
-  points?: number
+  points: number
   index?: number
+}
+
+export interface UpdateTeamRequest {
+  Id: string
+  name: string
+  foundedYear: number
+  wins: number
+  loss: number
+  draw: number
+  playedGames: number
 }
