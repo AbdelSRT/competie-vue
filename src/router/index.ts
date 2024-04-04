@@ -4,24 +4,46 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/CompetieView.vue')
-    },
-    {
-      path: '/teams/add-team',
-      name: 'add-team',
-      component: () => import('../views/NewTeamView.vue')
-    },
-    {
-      path: '/teams/:id',
-      name: 'team-detail',
-      component: () => import('../views/TeamDetailView.vue')
-    },
-    {
-      path: '/teams/update/:id',
-      name: 'team-update',
-      component: () => import('../views/UpdateTeamView.vue')
+      path: '',
+      name: 'layout',
+      component: () => import('../layouts/layoutView.vue'),
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('../views/HomeView.vue')
+        },
+        {
+          path: '/leaderboard',
+          name: 'leaderboard',
+          component: () => import('../views/CompetieView.vue')
+        },
+        {
+          path: '/teams/add-team',
+          name: 'add-team',
+          component: () => import('../views/NewTeamView.vue')
+        },
+        {
+          path: '/contact',
+          name: 'contact',
+          component: () => import('../views/ContactView.vue')
+        },
+        {
+          path: '/teams/:id',
+          name: 'team-detail',
+          component: () => import('../views/TeamDetailView.vue')
+        },
+        {
+          path: '/teams/:id/stadion',
+          name: 'stadion-detail',
+          component: () => import('../views/StadionView.vue')
+        },
+        {
+          path: '/teams/update/:id',
+          name: 'team-update',
+          component: () => import('../views/UpdateTeamView.vue')
+        }
+      ]
     }
   ]
 })

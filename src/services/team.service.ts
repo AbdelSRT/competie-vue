@@ -35,22 +35,25 @@ const useTeams = () => {
       .catch((error) => console.error(error))
   }
 
-  const addTeam = (teamName: string, foundedYear: null | number): void => {
+  const addTeam = (teamName: string): void => {
     axios
       .post('http://localhost:8080/api/v1/teams', {
-        name: teamName,
-        foundedYear: foundedYear
+        name: teamName
       })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.data !== '') {
           loadTeams()
           console.log('Successfully')
           router.back()
         } else {
           console.error('Form submission failed:', response.statusText)
+          alert('Team does not exist!')
         }
       })
-      .catch((error) => console.error('Network error:', error))
+      .catch((error) => {
+        alert('Team already exists')
+        console.error('Network error:', error)
+      })
   }
 
   const deleteTeam = (id: string) => {
@@ -68,19 +71,22 @@ const useTeams = () => {
     axios
       .get<Team>(`http://localhost:8080/api/v1/teams/${id}`)
       .then((res) => {
-        console.log('call werkt')
-        console.log(id)
         const teamBackend = res.data
         const points = teamBackend.wins * 3 + teamBackend.draw
         team.value = {
           Id: teamBackend.Id,
           name: teamBackend.name,
           foundedYear: teamBackend.foundedYear,
+          code: teamBackend.code,
+          country: teamBackend.country,
+          logo: teamBackend.logo,
+          national: teamBackend.national,
           wins: teamBackend.wins,
           loss: teamBackend.loss,
           draw: teamBackend.draw,
           playedGames: teamBackend.playedGames,
-          points: points
+          points: points,
+          venue: teamBackend.venue
         } satisfies Team
         return team
       })
@@ -97,9 +103,9 @@ const useTeams = () => {
         draw: team.draw,
         playedGames: team.playedGames
       })
-      .then((res) => {
+      .then(() => {
         loadTeams()
-        router.back()
+        router.push({ name: 'stadion-detail' })
         alert('Team edeted successfully')
       })
       .catch((error) => console.error('Network error:', error))

@@ -8,13 +8,14 @@ const router = useRouter()
 
 onMounted(() => {
   loadTeams()
+  console.log(teams)
 })
 </script>
 
 <template>
-  <div class="container">
-    <table>
-      <tr>
+  <div class="container p-7" v-if="teams.length > 0">
+    <table class="text-center">
+      <tr class="border-b text-emerald-200">
         <th scope="col">#</th>
         <th scope="col">Clubs</th>
         <th scope="col">Points</th>
@@ -22,12 +23,14 @@ onMounted(() => {
         <th scope="col">Losses</th>
         <th scope="col">Draw</th>
       </tr>
-      <tr v-for="team in teams" :key="team.name">
+      <tr
+        v-for="team in teams"
+        :key="team.name"
+        class="transition duration-300 ease-in-out hover:bg-gray-800 cursor-pointer"
+        @click="router.push({ name: 'team-detail', params: { id: team.Id } })"
+      >
         <td>{{ team.index }}</td>
-        <td
-          @click="router.push({ name: 'team-detail', params: { id: team.Id } })"
-          class="cursor-pointer"
-        >
+        <td>
           {{ team.name }}
         </td>
 
@@ -37,6 +40,9 @@ onMounted(() => {
         <td>{{ team.draw }}</td>
       </tr>
     </table>
+  </div>
+  <div v-else>
+    <h1 class="m-14">No teams availlable!</h1>
   </div>
 </template>
 
@@ -49,11 +55,6 @@ onMounted(() => {
 table {
   width: 80%;
   border: solid 1px;
-}
-th {
-  color: aquamarine;
-}
-td {
-  text-align: center;
+  margin-bottom: 20px;
 }
 </style>

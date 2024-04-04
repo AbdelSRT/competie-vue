@@ -37,8 +37,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="team">
-    <h1 class="text-center text-3xl mb-3">{{ team?.name }}</h1>
+  <div v-if="team" class="p-7">
+    <h1 class="text-center text-3xl mb-10">{{ team?.name }}</h1>
     <form class="max-w-md mx-auto" @submit.prevent="handleSubmit">
       <div class="grid md:grid-cols-2 md:gap-6">
         <div class="relative z-0 w-full mb-5 group">

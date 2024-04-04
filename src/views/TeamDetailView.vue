@@ -13,17 +13,35 @@ onMounted(async () => {
   teamId.value = route.params.id.toString()
 
   await loadTeamById(teamId.value)
+
+  console.log(team)
 })
 </script>
 
 <template>
-  <div v-if="team">
-    <h1 class="text-4xl text-center">
-      {{ team.name }}
-      <p class="text-sm mt-1">{{ team.foundedYear }}</p>
-    </h1>
-    <div class="relative overflow-x-auto mt-10 rounded-sm">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <div v-if="team" class="m-10">
+    <div class="flex justify-around">
+      <img class="h-24" :src="team.logo" alt="" />
+      <div class="text-4xl text-center">
+        {{ team.name }}
+        <div class="flex justify-around gap-3">
+          <p class="text-base">{{ team.foundedYear }}</p>
+          <p class="text-base">{{ team.country }}</p>
+        </div>
+        <button
+          type="button"
+          @click="router.push({ name: 'stadion-detail', params: { id: team.Id } })"
+          class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-xs px-3 py-1.5 text-center mb-2"
+        >
+          Stadion Details
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <table
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-xl"
+      >
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
@@ -55,7 +73,7 @@ onMounted(async () => {
       <button
         type="button"
         @click="deleteTeam(team.Id)"
-        class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
       >
         Delete Team
       </button>
