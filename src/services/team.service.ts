@@ -75,6 +75,7 @@ const useTeams = () => {
         const points = teamBackend.wins * 3 + teamBackend.draw
         team.value = {
           Id: teamBackend.Id,
+          api_id: teamBackend.api_id,
           name: teamBackend.name,
           foundedYear: teamBackend.foundedYear,
           code: teamBackend.code,

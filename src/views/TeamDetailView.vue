@@ -10,9 +10,10 @@ const router = useRouter()
 const teamId = ref<string | null>(null)
 
 onMounted(async () => {
-  teamId.value = route.params.id.toString()
-
-  await loadTeamById(teamId.value)
+  if (typeof route.params.id == 'string') {
+    teamId.value = route.params.id
+    await loadTeamById(teamId.value)
+  }
 
   console.log(team)
 })

@@ -4,6 +4,7 @@ export interface ApiResponse {
 
 export interface Team {
   Id: string
+  api_id: number
   name: string
   foundedYear: number
   code: string
