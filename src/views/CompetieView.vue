@@ -8,7 +8,6 @@ const router = useRouter()
 
 onMounted(() => {
   loadTeams()
-  console.log(teams)
 })
 </script>
 

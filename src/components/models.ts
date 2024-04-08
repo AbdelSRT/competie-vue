@@ -39,3 +39,25 @@ export interface UpdateTeamRequest {
   draw: number
   playedGames: number
 }
+
+export interface Player {
+  id: string
+  apiId: number
+  name: string
+  firstname: string
+  lastname: string
+  age: number
+  birth: Birth
+  nationality: string
+  height: string
+  weight: string
+  injured: boolean
+  photo: string
+  team?: any
+}
+
+interface Birth {
+  date: string
+  place: string
+  country: string
+}

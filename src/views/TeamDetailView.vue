@@ -31,10 +31,18 @@ onMounted(async () => {
         </div>
         <button
           type="button"
+          @click="router.push({ name: 'team-players', params: { id: team.Id } })"
+          class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-xs px-3 py-1.5 text-center me-2 mb-2"
+        >
+          Players
+        </button>
+
+        <button
+          type="button"
           @click="router.push({ name: 'stadion-detail', params: { id: team.Id } })"
           class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-xs px-3 py-1.5 text-center mb-2"
         >
-          Stadion Details
+          Stadion
         </button>
       </div>
     </div>

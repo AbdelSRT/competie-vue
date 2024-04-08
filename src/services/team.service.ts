@@ -1,9 +1,10 @@
-import type { ApiResponse, Team, UpdateTeamRequest } from '@/components/models'
+import type { ApiResponse, Team, UpdateTeamRequest, Player } from '@/components/models'
 import router from '@/router'
 import axios from 'axios'
 import { ref, type Ref } from 'vue'
 const teams: Ref<Array<Team>> = ref([])
 const team: Ref<null | Team> = ref(null)
+const players: Ref<Array<Player>> = ref([])
 
 const useTeams = () => {
   const loadTeams = () => {
@@ -112,6 +113,31 @@ const useTeams = () => {
       .catch((error) => console.error('Network error:', error))
   }
 
+  const loadPlayers = (id: string) => {
+    axios.get<Array<Player>>(`http://localhost:8080/api/v1/teams/${id}/players`).then((res) => {
+      console.log(res.data)
+      const playersBack = res.data
+      players.value = playersBack.map((playerBackend) => {
+        return {
+          id: playerBackend.id,
+          apiId: playerBackend.apiId,
+          name: playerBackend.name,
+          firstname: playerBackend.firstname,
+          lastname: playerBackend.lastname,
+          age: playerBackend.age,
+          birth: playerBackend.birth,
+          nationality: playerBackend.nationality,
+          height: playerBackend.height,
+          weight: playerBackend.weight,
+          injured: playerBackend.injured,
+          photo: playerBackend.photo,
+          team: playerBackend?.team
+        } as Player
+      })
+      return players
+    })
+  }
+
   return {
     loadTeams,
     teams,
@@ -119,7 +145,9 @@ const useTeams = () => {
     deleteTeam,
     loadTeamById,
     team,
-    updateTeam
+    updateTeam,
+    loadPlayers,
+    players
   }
 }
 
