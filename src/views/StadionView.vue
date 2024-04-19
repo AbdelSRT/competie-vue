@@ -1,30 +1,32 @@
 <script setup lang="ts">
+import { useAuth } from '@/services/auth.service'
 import { useTeams } from '@/services/team.service'
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const { loadTeamById, team, deleteTeam } = useTeams()
 
 const route = useRoute()
-const router = useRouter()
 const teamId = ref<string | null>(null)
 
 const stadion = team.value?.venue
+const { getToken } = useAuth()
 
 onMounted(async () => {
+  getToken()
   if (typeof route.params.id == 'string') {
     teamId.value = route.params.id
-    await loadTeamById(teamId.value)
+    await loadTeamById(teamId.value, false)
   }
 })
 </script>
 
 <template>
   <div id="container" v-if="stadion">
-    <h1 class="text-center text-3xl mt-5">{{ stadion.name }}</h1>
-    <div class="m-9 flex flex-row flex-wrap justify-around">
-      <img :src="stadion.image" class="h-48 rounded-md m-4" />
-      <div class="flex justify-center items-center">
+    <h1 class="mt-5 text-3xl text-center">{{ stadion.name }}</h1>
+    <div class="flex flex-row flex-wrap justify-around m-9">
+      <img :src="stadion.image" class="h-48 m-4 rounded-md" />
+      <div class="flex items-center justify-center">
         <table class="text-center table-auto">
           <tr>
             <th>Address:</th>

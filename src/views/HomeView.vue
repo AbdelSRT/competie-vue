@@ -4,17 +4,21 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 </script>
 <template>
-  <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
-    <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
+  <main class="pt-8 pb-16 antialiased bg-white lg:pt-16 lg:pb-24 dark:bg-gray-900">
+    <div class="flex justify-between max-w-screen-xl px-4 mx-auto">
       <div
-        class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"
+        class="w-full max-w-2xl mx-auto format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"
       >
         <header class="mb-4 lg:mb-6 not-format">
           <h1
-            class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white"
+            class="mb-4 text-3xl font-extrabold leading-tight text-center text-gray-900 lg:mb-6 lg:text-4xl dark:text-white"
           >
-            Welcome to the best competion of the world
+            Badr League
           </h1>
+          <img
+            src="https://fistf.com/wp-content/uploads/2017/08/cropped-UEFA-Champions-League-Stadium-Wallpaper-1.jpg"
+            alt=""
+          />
         </header>
         <p class="lead">
           Welcome to the ultimate destination for football enthusiasts! Dive into the electrifying
@@ -41,14 +45,15 @@ const router = useRouter()
           will contact you for further steps.
         </p>
         <p>When you have signed the papers you are raedy to play and show how good your team is.</p>
-        <h2 class="text-center text-white mt-5">
-          If you have any questions you <a @click="router.push({ name: 'contact' })">contact</a> us
-          so we can help you.
+        <h2 class="mt-5 text-center text-white">
+          If you have any questions you
+          <a class="cursor-pointer" @click="router.push({ name: 'contact' })">contact</a> us so we
+          can help you.
         </h2>
       </div>
     </div>
-    <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
-      <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <footer class="m-4 bg-white rounded-lg shadow dark:bg-gray-900">
+      <div class="w-full max-w-screen-xl p-4 mx-auto md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
           <ul
             class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
@@ -69,8 +74,9 @@ const router = useRouter()
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
-          >© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All
-          Rights Reserved.</span
+          >© 2023
+          <a href="https://flowbite.com/" class="cursor-pointer hover:underline">Abdelouahid™</a>.
+          All Rights Reserved.</span
         >
       </div>
     </footer>

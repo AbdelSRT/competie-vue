@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { UpdateTeamRequest } from '@/components/models'
+import { useAuth } from '@/services/auth.service'
 import { useTeams } from '@/services/team.service'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -8,6 +9,7 @@ const route = useRoute()
 const { loadTeamById, team, updateTeam } = useTeams()
 
 const teamId = ref<string | null>(null)
+const { getToken } = useAuth()
 
 let loss: number
 let wins: number
@@ -17,7 +19,7 @@ let playedGames: number
 const handleSubmit = () => {
   if (team.value) {
     const updatedTeam: UpdateTeamRequest = {
-      Id: team.value.Id,
+      id: team.value.id,
       foundedYear: team.value.foundedYear,
       name: team.value.name,
       playedGames: playedGames,
@@ -25,21 +27,22 @@ const handleSubmit = () => {
       loss: loss,
       draw: draws
     }
-    updateTeam(team.value.Id, updatedTeam)
+    updateTeam(team.value.id, updatedTeam)
   }
 }
 
 onMounted(async () => {
+  getToken()
   if (typeof route.params.id == 'string') {
     teamId.value = route.params.id
-    await loadTeamById(teamId.value)
+    await loadTeamById(teamId.value, false)
   }
 })
 </script>
 
 <template>
   <div v-if="team" class="p-7">
-    <h1 class="text-center text-3xl mb-10">{{ team?.name }}</h1>
+    <h1 class="mb-10 text-3xl text-center">{{ team?.name }}</h1>
     <form class="max-w-md mx-auto" @submit.prevent="handleSubmit">
       <div class="grid md:grid-cols-2 md:gap-6">
         <div class="relative z-0 w-full mb-5 group">

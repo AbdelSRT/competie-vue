@@ -3,8 +3,8 @@ export interface ApiResponse {
 }
 
 export interface Team {
-  Id: string
-  api_id: number
+  id: string
+  apiId: number
   name: string
   foundedYear: number
   code: string
@@ -21,7 +21,7 @@ export interface Team {
 }
 
 export interface Venue {
-  Id: string
+  id: string
   name: string
   address: string
   city: string
@@ -31,7 +31,7 @@ export interface Venue {
 }
 
 export interface UpdateTeamRequest {
-  Id: string
+  id: string
   name: string
   foundedYear: number
   wins: number
@@ -54,10 +54,50 @@ export interface Player {
   injured: boolean
   photo: string
   team?: any
+  number: number
+  position: string
 }
 
 interface Birth {
   date: string
   place: string
   country: string
+}
+
+export interface PlayersApiResponse {
+  players: Player[]
+}
+
+interface PlayerResponse {
+  id: string
+  apiId: number
+  name: string
+  firstname?: any
+  lastname?: any
+  age: number
+  birth?: any
+  nationality?: any
+  height?: any
+  weight?: any
+  injured: boolean
+  photo: string
+  team?: any
+  number: number
+  position: string
+}
+
+export interface Account {
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+}
+
+export interface AuthResponse {
+  token: string
+}
+
+export interface Login {
+  email: string
+  password: string
 }

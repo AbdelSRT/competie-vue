@@ -2,17 +2,26 @@
 import { useTeams } from '@/services/team.service'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '@/services/auth.service'
 
+const { getToken } = useAuth()
 const { loadTeams, teams } = useTeams()
 const router = useRouter()
 
 onMounted(() => {
-  loadTeams()
+  const token = localStorage.getItem('token')
+  if (!token) {
+    router.push({ name: 'login' })
+  }
+  getToken()
+  if (getToken != null) {
+    loadTeams()
+  }
 })
 </script>
 
 <template>
-  <div class="container p-7" v-if="teams.length > 0">
+  <div class="flex items-center justify-center h-full mt-16" v-if="teams.length > 0">
     <table class="text-center">
       <tr class="border-b text-emerald-200">
         <th scope="col">#</th>
@@ -25,8 +34,8 @@ onMounted(() => {
       <tr
         v-for="team in teams"
         :key="team.name"
-        class="transition duration-300 ease-in-out hover:bg-gray-800 cursor-pointer"
-        @click="router.push({ name: 'team-detail', params: { id: team.Id } })"
+        class="transition duration-300 ease-in-out cursor-pointer hover:bg-gray-800"
+        @click="router.push({ name: 'team-detail', params: { id: team.id } })"
       >
         <td>{{ team.index }}</td>
         <td>

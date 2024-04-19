@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import { useTeams } from '@/services/team.service'
+import { onMounted } from 'vue'
+import { useAuth } from '@/services/auth.service'
+import { useRouter } from 'vue-router'
 
 const { addTeam } = useTeams()
+const { getToken } = useAuth()
+const router = useRouter()
 
 let teamName = ''
 
 const handleSubmit = () => {
   addTeam(teamName)
 }
+
+onMounted(() => {
+  getToken()
+  const token = localStorage.getItem('token')
+  if (!token) {
+    router.push({ name: 'login' })
+  }
+})
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center">
-    <h2 class="text-3xl mb-5 text-emerald-200">Add Team</h2>
+  <div class="flex flex-col items-center justify-center">
+    <h2 class="mb-5 text-3xl text-emerald-200">Add Team</h2>
 
     <form @submit.prevent="handleSubmit">
       <div class="mb-5">
@@ -29,7 +42,7 @@ const handleSubmit = () => {
       </div>
       <button
         type="submit"
-        class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-2 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+        class="px-3 py-2 mb-2 text-xs font-medium text-center text-gray-900 border border-gray-800 rounded-lg hover:text-white hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 me-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
       >
         Add Team
       </button>
