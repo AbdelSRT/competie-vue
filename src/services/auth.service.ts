@@ -33,6 +33,7 @@ const useAuth = () => {
         localStorage.setItem('token', response.data.token)
         alert('Logged In succesfully')
         getToken()
+
         router.push({ name: 'leaderboard' })
       })
       .catch((error) => {

@@ -5,15 +5,14 @@ import { onMounted } from 'vue'
 const router = useRouter()
 const { logout, getToken } = useAuth()
 let loggedIn = false
-onMounted(() => {
-  getToken()
-  const token = localStorage.getItem('token')
-  if (token) {
-    loggedIn = true
-  } else {
-    loggedIn = false
-  }
-})
+
+getToken()
+const token = localStorage.getItem('token')
+if (token) {
+  loggedIn = true
+} else {
+  loggedIn = false
+}
 </script>
 <template>
   <nav

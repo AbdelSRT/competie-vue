@@ -1,4 +1,5 @@
 <template>
+  <div class="bg-zinc-500 h-lvh"></div>
   <div class="container px-2 mx-auto my-12 md:px-4">
     <section class="mb-32">
       <div class="flex justify-center">
